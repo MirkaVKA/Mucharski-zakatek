@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regulamin — Mucharski Zakątek</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:       #0B1426;
+      --navy-mid:   #1e2d4a;
+      --blue:       #2363EB;
+      --blue-light: #EFF4FF;
+      --text-body:  #4B5563;
+      --text-muted: #6B7280;
+      --border:     #E5E7EB;
+      --off-white:  #F8FAFC;
+      --shadow:     0 4px 24px rgba(11,20,38,.08);
+    }
+    html { overflow-x: hidden; scroll-behavior: smooth; }
+    body { font-family:'Plus Jakarta Sans',-apple-system,sans-serif; color:var(--navy); background:#fff; overflow-x:hidden; }
+
+    /* ══ NAV ══ */
+    nav { position:sticky; top:0; z-index:100; background:rgba(255,255,255,.96); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--border); padding:0 5%; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:68px; gap:16px; }
+    .logo-circle { width:40px; height:40px; border-radius:50%; background:var(--off-white); border:1.5px dashed #D1D5DB; display:flex; align-items:center; justify-content:center; overflow:hidden; text-decoration:none; flex-shrink:0; }
+    .logo-circle img { width:100%; height:100%; object-fit:cover; display:none; }
+    .logo-circle img[src]:not([src=""]) { display:block; }
+    .logo-initials { font-size:12px; font-weight:800; color:var(--text-muted); }
+    .nav-links { display:flex; gap:4px; list-style:none; justify-content:center; }
+    .nav-links a { font-size:14px; font-weight:500; color:var(--text-body); text-decoration:none; padding:6px 13px; border-radius:8px; transition:all .15s; }
+    .nav-links a:hover { color:var(--navy); background:var(--off-white); }
+    .nav-links a.active { color:var(--blue); background:var(--blue-light); }
+    .nav-right { display:flex; align-items:center; gap:8px; justify-content:flex-end; }
+    .lang-select { position:relative; }
+    .lang-btn { display:flex; align-items:center; gap:6px; padding:5px 10px 5px 6px; border:none; background:transparent; border-radius:8px; font-size:13px; font-weight:600; color:var(--navy); cursor:pointer; font-family:inherit; transition:background .15s; }
+    .lang-btn:hover { background:var(--off-white); }
+    .lang-flag-circle { width:26px; height:26px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:17px; line-height:1; background:var(--off-white); }
+    .lang-btn svg { opacity:.45; }
+    .lang-dropdown { position:absolute; top:calc(100% + 6px); right:0; background:#fff; border:1px solid var(--border); border-radius:8px; box-shadow:var(--shadow); overflow:hidden; min-width:130px; z-index:200; }
+    .lang-option { display:flex; align-items:center; gap:8px; width:100%; padding:9px 14px; font-size:13px; font-weight:500; color:var(--text-body); background:none; border:none; cursor:pointer; font-family:inherit; transition:background .1s; }
+    .lang-option:hover { background:var(--off-white); }
+    .lang-option.active { color:var(--blue); font-weight:600; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:11px 22px; border-radius:50px; font-size:14px; font-weight:600; text-decoration:none; border:none; cursor:pointer; transition:all .2s; font-family:inherit; }
+    .btn-primary { background:var(--navy); color:#fff; }
+    .btn-primary:hover { background:var(--navy-mid); transform:translateY(-1px); box-shadow:0 6px 20px rgba(11,20,38,.3); }
+    .btn-white { background:#fff; color:var(--navy); }
+    .btn-white:hover { background:#f0f4ff; }
+    .btn-ghost-white { background:rgba(255,255,255,.15); color:#fff; border:1.5px solid rgba(255,255,255,.3); }
+    .btn-ghost-white:hover { background:rgba(255,255,255,.22); }
+
+    /* ══ PAGE ══ */
+    .page-hero { padding:64px 5% 48px; }
+    .page-hero h1 { font-size:clamp(32px,3.5vw,48px); font-weight:800; letter-spacing:-0.02em; color:var(--navy); margin-bottom:12px; }
+    .page-hero p { font-size:16px; color:var(--text-body); line-height:1.75; max-width:560px; }
+
+    /* ══ REGULAMIN CONTENT ══ */
+    .reg-wrap { padding:0 5% 80px; }
+    .reg-inner { max-width:860px; margin:0 auto; }
+
+    /* section block */
+    .reg-section { margin-bottom:48px; }
+    .reg-section-title {
+      font-size:14px; font-weight:700;
+      color:var(--navy);
+      margin-bottom:20px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .reg-section-title i { font-size:16px; flex-shrink:0; color:var(--blue); }
+
+    /* numbered items */
+    .reg-list { list-style:none; display:flex; flex-direction:column; gap:0; }
+    .reg-item {
+      display:flex;
+      gap:8px;
+      padding:16px 0;
+      border-bottom:1px solid var(--border);
+      align-items:baseline;
+    }
+    .reg-item:last-child { border-bottom:none; }
+    .reg-num {
+      font-size:13px; font-weight:700; color:var(--blue);
+      flex-shrink:0; min-width:22px;
+    }
+    .reg-text { font-size:15px; color:var(--text-body); line-height:1.75; }
+    .reg-text strong { color:var(--navy); font-weight:600; }
+
+    /* highlight box — width fits content */
+    .reg-highlight {
+      background:var(--blue-light);
+      border-radius:10px;
+      padding:10px 16px;
+      margin-top:10px;
+      font-size:14px;
+      color:var(--navy);
+      line-height:1.65;
+      display:inline-flex; gap:8px; align-items:center;
+    }
+    .reg-highlight i { color:var(--blue); font-size:15px; flex-shrink:0; }
+
+    /* warning box — width fits content */
+    .reg-warning {
+      background:#FEF2F2; border:1px solid #FCA5A5;
+      border-radius:10px; padding:10px 16px; margin-top:10px;
+      font-size:14px; color:#7F1D1D; line-height:1.65;
+      display:inline-flex; gap:8px; align-items:center;
+    }
+    .reg-warning i { color:#DC2626; font-size:15px; flex-shrink:0; }
+
+    /* sub-list (zakazy) */
+    .reg-sublist { list-style:none; margin-top:8px; display:flex; flex-direction:column; gap:8px; }
+    .reg-sublist li { display:flex; gap:8px; align-items:flex-start; font-size:14px; color:var(--text-body); line-height:1.6; }
+    .reg-sublist li::before { content:'—'; color:var(--text-muted); flex-shrink:0; }
+
+    /* ══ BOOKING CTA ══ */
+    .booking-cta { background:var(--navy); padding:72px 5%; }
+    .booking-inner { max-width:1300px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:56px; }
+    .booking-text { flex:1; }
+    .booking-text h2 { font-size:clamp(24px,2.8vw,38px); font-weight:800; color:#fff; line-height:1.2; margin-bottom:10px; letter-spacing:-0.02em; }
+    .booking-text p { font-size:15px; color:rgba(255,255,255,.65); }
+    .booking-btns { display:flex; align-items:center; gap:12px; margin-top:24px; flex-wrap:wrap; }
+    .booking-contacts { display:flex; flex-direction:column; gap:16px; flex-shrink:0; }
+    .contact-item { display:flex; align-items:center; gap:10px; color:rgba(255,255,255,.6); font-size:13.5px; white-space:nowrap; }
+    .contact-item i { font-size:17px; color:rgba(255,255,255,.35); flex-shrink:0; }
+    .social-btn-lg { width:50px; height:50px; border-radius:50%; background:rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.75); font-size:22px; text-decoration:none; transition:all .2s; }
+    .social-btn-lg:hover { background:rgba(255,255,255,.22); color:#fff; transform:translateY(-2px); }
+    footer { background:var(--navy); padding:28px 5%; }
+    .footer-inner { max-width:1300px; margin:0 auto; }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:rgba(255,255,255,.6); }
+    .footer-bottom a { color:rgba(255,255,255,.6); text-decoration:underline; text-underline-offset:3px; transition:color .15s; font-size:12px; }
+    .footer-bottom a:hover { color:#fff; }
+
+    @media (max-width:768px) { nav { padding:0 4%; } .nav-links { display:none; } .booking-inner { flex-direction:column; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo-circle" title="Mucharski Zakątek">
+    <img src="" alt="Logo"><span class="logo-initials">MZ</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">O nas</a></li>
+    <li><a href="galeria.html">Galeria</a></li>
+    <li><a href="cennik.html">Cennik i rezerwacja</a></li>
+    <li><a href="regulamin.html" class="active">Regulamin</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-select" id="langSelect">
+      <button class="lang-btn" onclick="toggleLang()" type="button">
+        <span class="lang-flag-circle" id="langFlag">&#127477;&#127473;</span>
+        <span id="langCode">PL</span>
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="lang-dropdown" id="langDropdown" style="display:none;">
+        <button onclick="setLang('pl','&#127477;&#127473;','PL')" type="button" class="lang-option active">&#127477;&#127473; Polski</button>
+        <button onclick="setLang('en','&#127468;&#127463;','EN')" type="button" class="lang-option">&#127468;&#127463; English</button>
+      </div>
+    </div>
+    <a href="cennik.html#rezerwacja" class="btn btn-primary">Zarezerwuj</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <h1>Regulamin</h1>
+  <p>Zasady korzystania z obiektu Mucharski Zakątek. Prosimy o zapoznanie się przed przyjazdem.</p>
+</div>
+
+<!-- CONTENT -->
+<div class="reg-wrap">
+  <div class="reg-inner">
+
+    <!-- 1. REZERWACJA I PŁATNOŚĆ -->
+    <div class="reg-section">
+      <p class="reg-section-title"><i class="ti ti-calendar-check"></i> Rezerwacja i płatność</p>
+      <ol class="reg-list">
+
+        <li class="reg-item">
+          <span class="reg-num">1.</span>
+          <div class="reg-text">
+            Rezerwacja staje się wiążąca po wpłaceniu zadatku w wysokości <strong>300 zł</strong> na wskazany numer rachunku bankowego. Zadatek należy uiścić w ciągu 48 godzin od potwierdzenia dostępności terminu.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">2.</span>
+          <div class="reg-text">
+            Pozostałą kwotę za pobyt należy uregulować <strong>najpóźniej 2 dni przed planowanym przyjazdem</strong> — przelewem bankowym lub w inny uzgodniony sposób.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">3.</span>
+          <div class="reg-text">
+            <strong>Kaucja zwrotna:</strong> przy zameldowaniu pobierana jest kaucja w wysokości <strong>300 zł</strong> jako zabezpieczenie ewentualnych szkód. Kaucja blokowana jest na karcie płatniczej w chwili rezerwacji i zwracana w pełnej wysokości w dniu wymeldowania, o ile nie stwierdzono uszkodzeń ani innych naruszeń regulaminu.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">4.</span>
+          <div class="reg-text">
+            <strong>Anulowanie:</strong> rezygnacja z rezerwacji złożona co najmniej <strong>7 dni przed datą przyjazdu</strong> uprawnia do zwrotu wpłaconego zadatku w pełnej wysokości. W przypadku rezygnacji w terminie krótszym niż 7 dni zadatek nie podlega zwrotowi — chyba że osoba rezerwująca wskaże inną osobę, która skorzysta z obiektu w tym samym terminie.
+            <div class="reg-highlight">
+              <i class="ti ti-info-circle"></i>
+              Aby anulować rezerwację, skontaktuj się z nami mailowo lub telefonicznie jak najszybciej.
+            </div>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+
+    <!-- 2. ZAMELDOWANIE I WYMELDOWANIE -->
+    <div class="reg-section">
+      <p class="reg-section-title"><i class="ti ti-door-enter"></i> Zameldowanie i wymeldowanie</p>
+      <ol class="reg-list" start="5">
+
+        <li class="reg-item">
+          <span class="reg-num">5.</span>
+          <div class="reg-text">
+            Domek jest do dyspozycji Gości od godz. <strong>15:00</strong> w dniu przyjazdu do godz. <strong>11:00</strong> w dniu wyjazdu.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">6.</span>
+          <div class="reg-text">
+            Przekazanie kluczy odbywa się za pośrednictwem <strong>skrytki na kod</strong> lub poprzez <strong>spotkanie osobiste</strong> — szczegóły ustalane są indywidualnie po dokonaniu pełnej płatności. Dzięki temu możliwy jest przyjazd o dowolnej porze.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">7.</span>
+          <div class="reg-text">
+            Po przyjeździe prosimy o sprawdzenie stanu technicznego domku i zgłoszenie wszelkich usterek lub uszkodzeń zauważonych przy odbiorze. Brak zgłoszenia w ciągu 2 godzin od zameldowania oznacza przyjęcie obiektu bez zastrzeżeń.
+          </div>
+        </li>
+
+      </ol>
+    </div>
+
+    <!-- 3. ZASADY POBYTU -->
+    <div class="reg-section">
+      <p class="reg-section-title"><i class="ti ti-users"></i> Zasady pobytu</p>
+      <ol class="reg-list" start="8">
+
+        <li class="reg-item">
+          <span class="reg-num">8.</span>
+          <div class="reg-text">
+            Z domku korzystać może wyłącznie liczba osób podana przy rezerwacji — <strong>maksymalnie 6 osób</strong>. Udostępnianie obiektu osobom niezgłoszonym przy rezerwacji jest niedozwolone bez uprzedniej pisemnej zgody właściciela.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">9.</span>
+          <div class="reg-text">
+            Do dyspozycji Gości pozostaje <strong>duży, bezpłatny parking</strong> przed domkiem, mieszczący kilka samochodów.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">10.</span>
+          <div class="reg-text">
+            Na terenie obiektu obowiązuje <strong>cisza nocna od godz. 22:00 do 6:00</strong>. Prosimy o poszanowanie spokoju otoczenia i sąsiadów.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">11.</span>
+          <div class="reg-text">
+            <strong>Zwierzęta:</strong> ze względu na charakter obiektu, przebywanie zwierząt na jego terenie jest niedozwolone.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">12.</span>
+          <div class="reg-text">
+            Dzieci i młodzież poniżej 18. roku życia mogą przebywać na terenie obiektu wyłącznie pod opieką rodziców lub prawnych opiekunów.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">13.</span>
+          <div class="reg-text">
+            Mucharski Zakątek nie zapewnia wyżywienia ani organizacji zajęć podczas pobytu. Umowa nie obejmuje tych kosztów.
+          </div>
+        </li>
+
+      </ol>
+    </div>
+
+    <!-- 4. ZAKAZY -->
+    <div class="reg-section">
+      <p class="reg-section-title"><i class="ti ti-ban"></i> Zasady i ograniczenia</p>
+      <ol class="reg-list" start="14">
+
+        <li class="reg-item">
+          <span class="reg-num">14.</span>
+          <div class="reg-text">
+            Na terenie domku i obiektu obowiązują następujące zasady:
+            <ul class="reg-sublist">
+              <li>palenie tytoniu i wszelkich substancji wytwarzających dym jest dozwolone wyłącznie na zewnątrz budynku, w wyznaczonych miejscach</li>
+              <li>wnoszenie rowerów, hulajnóg, motorowerów i podobnego sprzętu do wnętrza domku jest niedozwolone</li>
+              <li>ognisko i grill można rozpalać wyłącznie w miejscach do tego przeznaczonych; przy silnym wietrze rozpalanie ognia jest zabronione</li>
+              <li>zostawianie ognia bez nadzoru jest surowo zabronione — ognisko należy całkowicie ugasić przed opuszczeniem miejsca</li>
+              <li>używanie urządzeń zasilanych gazem lub prądem, niebędących wyposażeniem obiektu, jest niedozwolone</li>
+              <li>wnoszenie materiałów łatwopalnych lub wybuchowych na teren obiektu jest surowo zabronione</li>
+              <li>organizowanie imprez okolicznościowych lub grupowych wymaga uprzedniej zgody właściciela</li>
+              <li>korzystanie z wyposażenia domku niezgodnie z przeznaczeniem jest niedozwolone</li>
+            </ul>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+
+    <!-- 5. ODPOWIEDZIALNOŚĆ -->
+    <div class="reg-section">
+      <p class="reg-section-title"><i class="ti ti-shield"></i> Odpowiedzialność</p>
+      <ol class="reg-list" start="15">
+
+        <li class="reg-item">
+          <span class="reg-num">15.</span>
+          <div class="reg-text">
+            Goście ponoszą pełną odpowiedzialność materialną za wszelkie uszkodzenia lub zniszczenia wyposażenia i infrastruktury domku powstałe z ich winy bądź winy osób towarzyszących. W przypadku stwierdzenia szkody prosimy o <strong>niezwłoczny kontakt</strong> z właścicielem. Koszt naprawy lub wymiany zostanie ustalony na podstawie rzeczywistych wydatków i powinien zostać uregulowany najpóźniej w dniu wyjazdu.
+            <div class="reg-warning">
+              <i class="ti ti-key"></i>
+              Zagubienie kluczy do obiektu wiąże się z opłatą w wysokości <strong>70 zł za sztukę</strong>.
+            </div>
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">16.</span>
+          <div class="reg-text">
+            Mucharski Zakątek nie ponosi odpowiedzialności za rzeczy osobiste, pojazdy ani środki pieniężne pozostawione na terenie obiektu.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">17.</span>
+          <div class="reg-text">
+            Właściciel nie odpowiada za ewentualne przerwy w dostawie wody lub energii elektrycznej spowodowane decyzjami zewnętrznych dostawców mediów.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">18.</span>
+          <div class="reg-text">
+            Mucharski Zakątek zastrzega prawo odmowy zakwaterowania wobec osób, które w sposób widoczny pozostają pod wpływem alkoholu lub innych substancji odurzających, a także zachowują się agresywnie lub naruszają porządek publiczny.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">19.</span>
+          <div class="reg-text">
+            Nieprzestrzeganie postanowień niniejszego Regulaminu — w szczególności rażące naruszenie ciszy nocnej lub zasad dobrosąsiedzkich — może skutkować natychmiastowym rozwiązaniem umowy bez prawa do zwrotu poniesionych kosztów. W przypadku konieczności interwencji Policji lub służb porządkowych umowa ulega rozwiązaniu ze skutkiem natychmiastowym.
+          </div>
+        </li>
+
+      </ol>
+    </div>
+
+    <!-- 6. WYMELDOWANIE -->
+    <div class="reg-section">
+      <p class="reg-section-title"><i class="ti ti-door-exit"></i> Wymeldowanie i stan domku</p>
+      <ol class="reg-list" start="20">
+
+        <li class="reg-item">
+          <span class="reg-num">20.</span>
+          <div class="reg-text">
+            Goście zobowiązani są do pozostawienia domku w stanie niepogorszonym. Przed wyjazdem należy:
+            <ul class="reg-sublist">
+              <li>umyć naczynia i sprzęty kuchenne,</li>
+              <li>wyłączyć wszystkie urządzenia elektryczne, w tym klimatyzację, zmywarkę, mikrofalówkę i telewizor,</li>
+              <li>zamknąć wszystkie okna i drzwi,</li>
+              <li>posegregować śmieci zgodnie z obowiązującymi zasadami.</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">21.</span>
+          <div class="reg-text">
+            W obiekcie zapewniona jest pościel i ręczniki na cały okres pobytu.
+          </div>
+        </li>
+
+      </ol>
+    </div>
+
+    <!-- 7. POSTANOWIENIA KOŃCOWE -->
+    <div class="reg-section">
+      <p class="reg-section-title"><i class="ti ti-scale"></i> Postanowienia końcowe</p>
+      <ol class="reg-list" start="22">
+
+        <li class="reg-item">
+          <span class="reg-num">22.</span>
+          <div class="reg-text">
+            W kwestiach nieuregulowanych niniejszym Regulaminem zastosowanie mają przepisy Kodeksu Cywilnego oraz właściwych ustaw dotyczących świadczenia usług turystycznych.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">23.</span>
+          <div class="reg-text">
+            Rażące naruszenie postanowień Regulaminu uprawnia Mucharski Zakątek do natychmiastowego rozwiązania umowy bez prawa do zwrotu uiszczonych opłat.
+          </div>
+        </li>
+
+        <li class="reg-item">
+          <span class="reg-num">24.</span>
+          <div class="reg-text">
+            Dokonując rezerwacji, Gość potwierdza, że zapoznał się z niniejszym Regulaminem i akceptuje jego postanowienia.
+          </div>
+        </li>
+
+      </ol>
+    </div>
+
+  </div>
+</div>
+
+<!-- BOOKING CTA -->
+<section class="booking-cta" id="rezerwacja">
+  <div class="booking-inner">
+    <div class="booking-text">
+      <h2>Gotowy na wypoczynek nad jeziorem?</h2>
+      <p>Sprawdź wolne terminy i zarezerwuj pobyt — odpiszemy w ciągu 24 godzin.</p>
+      <div class="booking-btns">
+        <a href="cennik.html#rezerwacja" class="btn btn-white">Zarezerwuj</a>
+        <a href="mailto:mucharski.zakatek@gmail.com" class="btn btn-ghost-white">Napisz do nas</a>
+        <div style="width:1px;height:36px;background:rgba(255,255,255,.2);margin:0 4px;flex-shrink:0;"></div>
+        <a href="#whatsapp" class="social-btn-lg" title="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+        <a href="#facebook" class="social-btn-lg" title="Facebook"><i class="ti ti-brand-facebook"></i></a>
+        <a href="https://www.instagram.com/mucharski.zakatek/" target="_blank" rel="noopener" class="social-btn-lg" title="Instagram"><i class="ti ti-brand-instagram"></i></a>
+      </div>
+    </div>
+    <div class="booking-contacts">
+      <div class="contact-item">
+        <i class="ti ti-phone"></i>
+        <a href="tel:+48733687595" style="color:inherit;text-decoration:none;">+48 733 687 595</a>
+      </div>
+      <div class="contact-item">
+        <i class="ti ti-mail"></i>
+        <a href="mailto:mucharski.zakatek@gmail.com" style="color:inherit;text-decoration:none;">mucharski.zakatek@gmail.com</a>
+      </div>
+      <div class="contact-item" onclick="copyAddress()" style="cursor:pointer;" title="Kliknij, aby skopiować adres">
+        <i class="ti ti-map-pin"></i>
+        <span>Dąbrówka 217, 34-146 Dąbrówka</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <span>&copy; 2026 Mucharski Zakątek</span>
+      <a href="polityka-prywatnosci.html">Polityka prywatności</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleLang() { var d=document.getElementById('langDropdown'); d.style.display=d.style.display==='none'?'block':'none'; }
+  function setLang(code,flag,label) { document.getElementById('langFlag').innerHTML=flag; document.getElementById('langCode').textContent=label; document.getElementById('langDropdown').style.display='none'; document.documentElement.lang=code; }
+  document.addEventListener('click',function(e){ if(!document.getElementById('langSelect').contains(e.target)) document.getElementById('langDropdown').style.display='none'; });
+  function copyAddress() { navigator.clipboard.writeText('Dąbrówka 217, 34-146 Dąbrówka'); }
+</script>
+
+</body>
+</html>

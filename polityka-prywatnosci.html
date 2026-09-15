@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polityka prywatności — Mucharski Zakątek</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:#0B1426; --navy-mid:#1e2d4a; --blue:#2363EB; --blue-light:#EFF4FF;
+      --text-body:#4B5563; --text-muted:#6B7280; --border:#E5E7EB; --off-white:#F8FAFC;
+      --shadow:0 4px 24px rgba(11,20,38,.08);
+    }
+    html { overflow-x:hidden; scroll-behavior:smooth; }
+    body { font-family:'Plus Jakarta Sans',-apple-system,sans-serif; color:var(--navy); background:#fff; overflow-x:hidden; }
+
+    /* ══ NAV ══ */
+    nav { position:sticky; top:0; z-index:100; background:rgba(255,255,255,.96); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--border); padding:0 5%; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:68px; gap:16px; }
+    .logo-circle { width:40px; height:40px; border-radius:50%; background:var(--off-white); border:1.5px dashed #D1D5DB; display:flex; align-items:center; justify-content:center; overflow:hidden; text-decoration:none; flex-shrink:0; }
+    .logo-circle img { width:100%; height:100%; object-fit:cover; display:none; }
+    .logo-circle img[src]:not([src=""]) { display:block; }
+    .logo-initials { font-size:12px; font-weight:800; color:var(--text-muted); }
+    .nav-links { display:flex; gap:4px; list-style:none; justify-content:center; }
+    .nav-links a { font-size:14px; font-weight:500; color:var(--text-body); text-decoration:none; padding:6px 13px; border-radius:8px; transition:all .15s; }
+    .nav-links a:hover { color:var(--navy); background:var(--off-white); }
+    .nav-links a.active { color:var(--blue); background:var(--blue-light); }
+    .nav-right { display:flex; align-items:center; gap:8px; justify-content:flex-end; }
+    .lang-select { position:relative; }
+    .lang-btn { display:flex; align-items:center; gap:6px; padding:5px 10px 5px 6px; border:none; background:transparent; border-radius:8px; font-size:13px; font-weight:600; color:var(--navy); cursor:pointer; font-family:inherit; transition:background .15s; }
+    .lang-btn:hover { background:var(--off-white); }
+    .lang-flag-circle { width:26px; height:26px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:17px; line-height:1; background:var(--off-white); }
+    .lang-btn svg { opacity:.45; }
+    .lang-dropdown { position:absolute; top:calc(100% + 6px); right:0; background:#fff; border:1px solid var(--border); border-radius:8px; box-shadow:var(--shadow); overflow:hidden; min-width:130px; z-index:200; }
+    .lang-option { display:flex; align-items:center; gap:8px; width:100%; padding:9px 14px; font-size:13px; font-weight:500; color:var(--text-body); background:none; border:none; cursor:pointer; font-family:inherit; transition:background .1s; }
+    .lang-option:hover { background:var(--off-white); }
+    .lang-option.active { color:var(--blue); font-weight:600; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:11px 22px; border-radius:50px; font-size:14px; font-weight:600; text-decoration:none; border:none; cursor:pointer; transition:all .2s; font-family:inherit; }
+    .btn-primary { background:var(--navy); color:#fff; }
+    .btn-primary:hover { background:var(--navy-mid); transform:translateY(-1px); box-shadow:0 6px 20px rgba(11,20,38,.3); }
+    .btn-white { background:#fff; color:var(--navy); }
+    .btn-ghost-white { background:rgba(255,255,255,.15); color:#fff; border:1.5px solid rgba(255,255,255,.3); }
+    .btn-ghost-white:hover { background:rgba(255,255,255,.22); }
+
+    /* ══ HERO ══ */
+    .page-hero { padding:64px 5% 48px; }
+    .page-hero h1 { font-size:clamp(32px,3.5vw,48px); font-weight:800; letter-spacing:-0.02em; color:var(--navy); margin-bottom:12px; }
+    .page-hero p { font-size:15px; color:var(--text-muted); line-height:1.75; }
+
+    /* ══ CONTENT ══ */
+    .pp-wrap { padding:0 5% 88px; }
+    .pp-inner { max-width:860px; margin:0 auto; }
+
+    .pp-section { margin-bottom:48px; }
+    .pp-section-title {
+      font-size:14px; font-weight:700; color:var(--navy);
+      margin-bottom:18px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .pp-section-title i { font-size:16px; flex-shrink:0; color:var(--blue); }
+
+    .pp-text { font-size:15px; color:var(--text-body); line-height:1.8; }
+    .pp-text + .pp-text { margin-top:14px; }
+    .pp-text strong { color:var(--navy); font-weight:600; }
+    .pp-text a { color:var(--text-body); text-decoration:underline; text-underline-offset:2px; }
+    .pp-text a:hover { color:var(--navy); }
+
+    .pp-list { list-style:none; display:flex; flex-direction:column; gap:10px; margin-top:14px; }
+    .pp-list li { display:flex; gap:10px; align-items:flex-start; font-size:15px; color:var(--text-body); line-height:1.7; }
+    .pp-list li::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--blue); flex-shrink:0; margin-top:9px; }
+    .pp-list li span { display:block; }
+    .pp-list li strong { font-weight:600; color:var(--navy); }
+    .pp-list a { color:var(--text-body); text-decoration:underline; text-underline-offset:2px; }
+    .pp-list a:hover { color:var(--navy); }
+
+    .pp-divider { height:1px; background:var(--border); margin-bottom:48px; }
+
+    /* info box — width fits content */
+    .pp-info {
+      background:var(--blue-light); border-radius:10px;
+      padding:10px 16px; margin-top:18px;
+      font-size:14px; color:var(--navy); line-height:1.65;
+      display:inline-flex; gap:8px; align-items:center;
+    }
+    .pp-info i { color:var(--blue); font-size:15px; flex-shrink:0; }
+    .pp-info a { color:var(--text-body); text-decoration:underline; text-underline-offset:2px; }
+    .pp-info a:hover { color:var(--navy); }
+
+    /* date tag */
+    .pp-date { font-size:12px; color:var(--text-muted); margin-top:8px; }
+
+    /* ══ CTA ══ */
+    .booking-cta { background:var(--navy); padding:72px 5%; }
+    .booking-inner { max-width:1300px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:56px; }
+    .booking-text { flex:1; }
+    .booking-text h2 { font-size:clamp(24px,2.8vw,38px); font-weight:800; color:#fff; line-height:1.2; margin-bottom:10px; letter-spacing:-0.02em; }
+    .booking-text p { font-size:15px; color:rgba(255,255,255,.65); }
+    .booking-btns { display:flex; align-items:center; gap:12px; margin-top:24px; flex-wrap:wrap; }
+    .booking-contacts { display:flex; flex-direction:column; gap:16px; flex-shrink:0; }
+    .cta-contact-item { display:flex; align-items:center; gap:10px; color:rgba(255,255,255,.6); font-size:13.5px; white-space:nowrap; }
+    .cta-contact-item i { font-size:17px; color:rgba(255,255,255,.35); }
+    .social-btn-lg { width:50px; height:50px; border-radius:50%; background:rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.75); font-size:22px; text-decoration:none; transition:all .2s; }
+    .social-btn-lg:hover { background:rgba(255,255,255,.22); color:#fff; transform:translateY(-2px); }
+    footer { background:var(--navy); padding:28px 5%; }
+    .footer-inner { max-width:1300px; margin:0 auto; }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:rgba(255,255,255,.6); }
+    .footer-bottom a { color:rgba(255,255,255,.6); text-decoration:underline; text-underline-offset:3px; transition:color .15s; font-size:12px; }
+    .footer-bottom a:hover { color:#fff; }
+
+    @media (max-width:768px) { nav { padding:0 4%; } .nav-links { display:none; } .booking-inner { flex-direction:column; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo-circle" title="Mucharski Zakątek">
+    <img src="" alt="Logo"><span class="logo-initials">MZ</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">O nas</a></li>
+    <li><a href="galeria.html">Galeria</a></li>
+    <li><a href="cennik.html">Cennik i rezerwacja</a></li>
+    <li><a href="regulamin.html">Regulamin</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-select" id="langSelect">
+      <button class="lang-btn" onclick="toggleLang()" type="button">
+        <span class="lang-flag-circle" id="langFlag">&#127477;&#127473;</span>
+        <span id="langCode">PL</span>
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="lang-dropdown" id="langDropdown" style="display:none;">
+        <button onclick="setLang('pl','&#127477;&#127473;','PL')" type="button" class="lang-option active">&#127477;&#127473; Polski</button>
+        <button onclick="setLang('en','&#127468;&#127463;','EN')" type="button" class="lang-option">&#127468;&#127463; English</button>
+      </div>
+    </div>
+    <a href="cennik.html#rezerwacja" class="btn btn-primary">Zarezerwuj</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>Polityka prywatności</h1>
+  <p>Dokument opisuje zasady przetwarzania danych osobowych przez Mucharski Zakątek.</p>
+  <p class="pp-date">Obowiązuje od: 1 września 2026 r.</p>
+</div>
+
+<div class="pp-wrap">
+  <div class="pp-inner">
+
+    <div class="pp-section">
+      <p class="pp-section-title"><i class="ti ti-user-shield"></i> 1. Administrator danych osobowych</p>
+      <p class="pp-text">Administratorem Twoich danych osobowych jest właściciel obiektu <strong>Mucharski Zakątek</strong>, Dąbrówka 217, 34-146 Dąbrówka.</p>
+      <p class="pp-text">W sprawach dotyczących ochrony danych osobowych możesz skontaktować się z nami:</p>
+      <ul class="pp-list">
+        <li>mailowo: <a href="mailto:mucharski.zakatek@gmail.com">mucharski.zakatek@gmail.com</a></li>
+        <li>telefonicznie: <a href="tel:+48733687595">+48 733 687 595</a></li>
+        <li>listownie: Dąbrówka 217, 34-146 Dąbrówka</li>
+      </ul>
+    </div>
+
+    <div class="pp-divider"></div>
+
+    <div class="pp-section">
+      <p class="pp-section-title"><i class="ti ti-target"></i> 2. Cele i podstawy przetwarzania danych</p>
+      <p class="pp-text">Twoje dane osobowe przetwarzamy wyłącznie w zakresie niezbędnym do prowadzenia działalności związanej z wynajmem obiektu. Podstawy prawne przetwarzania określa art. 6 RODO:</p>
+      <ul class="pp-list">
+        <li>Imię, nazwisko, numer telefonu i adres e-mail zbieramy w celu potwierdzenia i realizacji rezerwacji — obsługa umowy najmu (art. 6 ust. 1 lit. b RODO).</li>
+        <li>Dane podane w wiadomościach e-mail lub przez formularz kontaktowy przetwarzamy w celu udzielenia odpowiedzi na zapytanie (art. 6 ust. 1 lit. f RODO).</li>
+        <li>Jeśli wystawiamy dokument sprzedaży, przetwarzamy dane niezbędne do jego wystawienia zgodnie z przepisami prawa podatkowego (art. 6 ust. 1 lit. c RODO).</li>
+        <li>W razie konieczności możemy przetwarzać dane w celu ustalenia lub obrony roszczeń (art. 6 ust. 1 lit. f RODO).</li>
+      </ul>
+    </div>
+
+    <div class="pp-divider"></div>
+
+    <div class="pp-section">
+      <p class="pp-section-title"><i class="ti ti-database"></i> 3. Zakres gromadzonych danych</p>
+      <p class="pp-text">W zależności od formy kontaktu możemy gromadzić następujące dane:</p>
+      <ul class="pp-list">
+        <li>imię i nazwisko,</li>
+        <li>numer telefonu,</li>
+        <li>adres e-mail,</li>
+        <li>treść korespondencji,</li>
+        <li>informacje o planowanym pobycie (daty, liczba osób).</li>
+      </ul>
+      <p class="pp-text" style="margin-top:14px;">Nie zbieramy danych wrażliwych, danych dotyczących dzieci ani danych wykraczających poza zakres niezbędny do realizacji rezerwacji.</p>
+    </div>
+
+    <div class="pp-divider"></div>
+
+    <div class="pp-section">
+      <p class="pp-section-title"><i class="ti ti-share"></i> 4. Przekazywanie danych osobowych</p>
+      <p class="pp-text">Twoje dane osobowe nie są sprzedawane ani udostępniane podmiotom trzecim w celach marketingowych. Mogą być natomiast przekazywane wyłącznie podmiotom, które wspierają nas w obsłudze rezerwacji i działalności operacyjnej, w szczególności:</p>
+      <ul class="pp-list">
+        <li>dostawcy systemu płatności online (w przypadku płatności kartą),</li>
+        <li>dostawcy usług e-mail (np. Google — w zakresie obsługi skrzynki pocztowej),</li>
+        <li>dostawcy usług hostingowych i technicznych związanych z działaniem strony internetowej,</li>
+        <li>organom państwowym — wyłącznie na podstawie obowiązujących przepisów prawa.</li>
+      </ul>
+      <p class="pp-text" style="margin-top:14px;">Jeśli korzystamy z narzędzi, których dostawcy przechowują dane na serwerach poza Europejskim Obszarem Gospodarczym (np. w USA), dane te są chronione na podstawie standardowych klauzul umownych zgodnych z RODO.</p>
+    </div>
+
+    <div class="pp-divider"></div>
+
+    <div class="pp-section">
+      <p class="pp-section-title"><i class="ti ti-clock"></i> 5. Okres przechowywania danych</p>
+      <p class="pp-text">Dane osobowe przechowujemy przez okres niezbędny do realizacji celów, dla których zostały zebrane:</p>
+      <ul class="pp-list">
+        <li><span><strong>Dane rezerwacyjne.</strong> Przez czas trwania umowy najmu oraz do 3 lat po jej zakończeniu (okres przedawnienia roszczeń).</span></li>
+        <li><span><strong>Korespondencja.</strong> Przez czas trwania wymiany wiadomości oraz do 1 roku po jej zakończeniu.</span></li>
+        <li><span><strong>Dokumenty księgowe.</strong> Przez okres wymagany przepisami prawa podatkowego, tj. 5 lat od końca roku podatkowego.</span></li>
+      </ul>
+      <p class="pp-text" style="margin-top:14px;">Po upływie wskazanych okresów dane są trwale usuwane lub anonimizowane.</p>
+    </div>
+
+    <div class="pp-divider"></div>
+
+    <div class="pp-section">
+      <p class="pp-section-title"><i class="ti ti-scale"></i> 6. Twoje prawa</p>
+      <p class="pp-text">Na podstawie przepisów RODO przysługują Ci następujące prawa w zakresie Twoich danych osobowych:</p>
+      <ul class="pp-list">
+        <li><span><strong>Dostęp do danych.</strong> Możesz zażądać informacji o tym, jakie dane na Twój temat przetwarzamy i otrzymać ich kopię.</span></li>
+        <li><span><strong>Sprostowanie.</strong> Możesz żądać poprawienia nieprawidłowych lub uzupełnienia niekompletnych danych.</span></li>
+        <li><span><strong>Usunięcie danych.</strong> Możesz żądać usunięcia danych, jeśli nie istnieje podstawa prawna do ich dalszego przetwarzania.</span></li>
+        <li><span><strong>Ograniczenie przetwarzania.</strong> Możesz żądać, abyśmy ograniczyli przetwarzanie Twoich danych wyłącznie do ich przechowywania.</span></li>
+        <li><span><strong>Sprzeciw.</strong> Możesz wnieść sprzeciw wobec przetwarzania danych opartego na prawnie uzasadnionym interesie administratora.</span></li>
+        <li><span><strong>Przenoszenie danych.</strong> Możesz otrzymać swoje dane w ustrukturyzowanym, powszechnie używanym formacie nadającym się do odczytu maszynowego.</span></li>
+        <li><span><strong>Skarga do PUODO.</strong> Jeśli uważasz, że przetwarzamy Twoje dane niezgodnie z prawem, możesz złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych, ul. Stawki 2, 00-193 Warszawa.</span></li>
+      </ul>
+      <div class="pp-info">
+        <i class="ti ti-mail"></i>
+        Aby skorzystać z przysługujących Ci praw, skontaktuj się z nami mailowo: <a href="mailto:mucharski.zakatek@gmail.com" style="color:var(--blue);font-weight:600;">mucharski.zakatek@gmail.com</a>
+      </div>
+    </div>
+
+    <div class="pp-divider"></div>
+
+    <div class="pp-section">
+      <p class="pp-section-title"><i class="ti ti-cookie"></i> 7. Pliki cookies</p>
+      <p class="pp-text">Nasza strona internetowa może wykorzystywać pliki cookies — niewielkie pliki tekstowe zapisywane na Twoim urządzeniu. Służą one wyłącznie do zapewnienia prawidłowego działania strony i nie są wykorzystywane do śledzenia ani profilowania użytkowników.</p>
+      <p class="pp-text" style="margin-top:14px;">Możesz zarządzać plikami cookies z poziomu ustawień swojej przeglądarki internetowej — zablokować je lub usunąć w dowolnym momencie. Wyłączenie cookies może wpłynąć na działanie niektórych funkcji strony.</p>
+      <p class="pp-text" style="margin-top:14px;">Strona może korzystać z narzędzi zewnętrznych, takich jak Google Maps, które mogą stosować własne pliki cookies — ich zasady opisane są w politykach prywatności tych podmiotów.</p>
+    </div>
+
+    <div class="pp-divider"></div>
+
+    <div class="pp-section">
+      <p class="pp-section-title"><i class="ti ti-brand-instagram"></i> 8. Media społecznościowe</p>
+      <p class="pp-text">Prowadzimy profile w mediach społecznościowych (Facebook, Instagram, WhatsApp). Jeśli kontaktujesz się z nami za ich pośrednictwem lub wchodzisz w interakcję z naszymi treściami, przetwarzamy dane udostępnione przez Ciebie na tych platformach. Zasady przetwarzania danych przez same platformy określają ich własne polityki prywatności.</p>
+    </div>
+
+    <div class="pp-divider"></div>
+
+    <div class="pp-section">
+      <p class="pp-section-title"><i class="ti ti-file-description"></i> 9. Postanowienia końcowe</p>
+      <p class="pp-text">W sprawach nieuregulowanych niniejszą Polityką prywatności stosuje się właściwe przepisy prawa polskiego, w szczególności Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. (RODO) oraz ustawy z dnia 10 maja 2018 r. o ochronie danych osobowych.</p>
+      <p class="pp-text" style="margin-top:14px;">Zastrzegamy sobie prawo do zmiany niniejszej Polityki prywatności. O wszelkich istotnych zmianach będziemy informować poprzez aktualizację daty na początku dokumentu. Zachęcamy do okresowego zapoznawania się z jej treścią.</p>
+      <div class="pp-info">
+        <i class="ti ti-calendar-check"></i>
+        Niniejsza Polityka prywatności obowiązuje od <strong>1 września 2026 r.</strong>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="booking-cta">
+  <div class="booking-inner">
+    <div class="booking-text">
+      <h2>Gotowy na wypoczynek nad jeziorem?</h2>
+      <p>Sprawdź wolne terminy i zarezerwuj pobyt — odpiszemy w ciągu 24 godzin.</p>
+      <div class="booking-btns">
+        <a href="cennik.html#rezerwacja" class="btn btn-white">Zarezerwuj</a>
+        <a href="mailto:mucharski.zakatek@gmail.com" class="btn btn-ghost-white">Napisz do nas</a>
+        <div style="width:1px;height:36px;background:rgba(255,255,255,.2);margin:0 4px;flex-shrink:0;"></div>
+        <a href="#whatsapp" class="social-btn-lg" title="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+        <a href="#facebook" class="social-btn-lg" title="Facebook"><i class="ti ti-brand-facebook"></i></a>
+        <a href="https://www.instagram.com/mucharski.zakatek/" target="_blank" rel="noopener" class="social-btn-lg" title="Instagram"><i class="ti ti-brand-instagram"></i></a>
+      </div>
+    </div>
+    <div class="booking-contacts">
+      <div class="cta-contact-item">
+        <i class="ti ti-phone"></i>
+        <a href="tel:+48733687595" style="color:inherit;text-decoration:none;">+48 733 687 595</a>
+      </div>
+      <div class="cta-contact-item">
+        <i class="ti ti-mail"></i>
+        <a href="mailto:mucharski.zakatek@gmail.com" style="color:inherit;text-decoration:none;">mucharski.zakatek@gmail.com</a>
+      </div>
+      <div class="cta-contact-item" onclick="navigator.clipboard.writeText('Dąbrówka 217, 34-146 Dąbrówka')" style="cursor:pointer;">
+        <i class="ti ti-map-pin"></i>
+        <span>Dąbrówka 217, 34-146 Dąbrówka</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <span>&copy; 2026 Mucharski Zakątek</span>
+      <a href="polityka-prywatnosci.html">Polityka prywatności</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleLang() { var d=document.getElementById('langDropdown'); d.style.display=d.style.display==='none'?'block':'none'; }
+  function setLang(code,flag,label) { document.getElementById('langFlag').innerHTML=flag; document.getElementById('langCode').textContent=label; document.getElementById('langDropdown').style.display='none'; document.documentElement.lang=code; }
+  document.addEventListener('click',function(e){ if(!document.getElementById('langSelect').contains(e.target)) document.getElementById('langDropdown').style.display='none'; });
+</script>
+</body>
+</html>

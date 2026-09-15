@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galeria — Mucharski Zakątek</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0B1426;
+      --navy-mid:   #1e2d4a;
+      --blue:       #2363EB;
+      --blue-light: #EFF4FF;
+      --text-body:  #4B5563;
+      --text-muted: #6B7280;
+      --border:     #E5E7EB;
+      --off-white:  #F8FAFC;
+    }
+
+    html { scroll-behavior: smooth; }
+    html { overflow-x: hidden; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--navy); background: #fff; overflow-x: hidden;
+    }
+
+    /* ══ NAV ══ */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; height: 68px; gap: 16px;
+    }
+    .logo-circle {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--off-white); border: 1.5px dashed #D1D5DB;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; text-decoration: none; flex-shrink: 0;
+    }
+    .logo-circle img { width: 100%; height: 100%; object-fit: cover; display: none; }
+    .logo-circle img[src]:not([src=""]) { display: block; }
+    .logo-initials { font-size: 12px; font-weight: 800; color: var(--text-muted); }
+    .nav-links { display: flex; gap: 4px; list-style: none; justify-content: center; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--text-body);
+      text-decoration: none; padding: 6px 13px; border-radius: 8px; transition: all .15s;
+    }
+    .nav-links a:hover { color: var(--navy); background: var(--off-white); }
+    .nav-links a.active { color: var(--blue); background: var(--blue-light); }
+    .nav-right { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+    .lang-select { position: relative; }
+    .lang-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 10px 5px 6px; border: none; background: transparent;
+      border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--navy);
+      cursor: pointer; font-family: inherit; transition: background .15s;
+    }
+    .lang-btn:hover { background: var(--off-white); }
+    .lang-flag-circle {
+      width: 26px; height: 26px; border-radius: 50%; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; line-height: 1; background: var(--off-white);
+    }
+    .lang-btn svg { opacity: .45; }
+    .lang-dropdown {
+      position: absolute; top: calc(100% + 6px); right: 0;
+      background: #fff; border: 1px solid var(--border);
+      border-radius: 8px; box-shadow: 0 4px 24px rgba(11,20,38,.08);
+      overflow: hidden; min-width: 130px; z-index: 300;
+    }
+    .lang-option {
+      display: flex; align-items: center; gap: 8px;
+      width: 100%; padding: 9px 14px; font-size: 13px; font-weight: 500;
+      color: var(--text-body); background: none; border: none;
+      cursor: pointer; font-family: inherit; transition: background .1s;
+    }
+    .lang-option:hover { background: var(--off-white); }
+    .lang-option.active { color: var(--blue); font-weight: 600; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 22px; border-radius: 50px; font-size: 14px; font-weight: 600;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: all .2s ease; font-family: inherit;
+    }
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { background: var(--navy-mid); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(11,20,38,.3); }
+    .btn-white { background:#fff; color:var(--navy); }
+    .btn-white:hover { background:#f0f4ff; }
+    .btn-ghost-white { background:rgba(255,255,255,.15); color:#fff; border:1.5px solid rgba(255,255,255,.3); }
+    .btn-ghost-white:hover { background:rgba(255,255,255,.22); }
+
+    /* ══ LAYOUT ══ */
+    .gallery-wrap {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      align-items: start;
+      padding: 0 5%;
+    }
+
+    /* ══ SIDEBAR — floating, content height, rounded ══ */
+    .gallery-sidebar {
+      position: sticky;
+      top: calc(68px + 24px);
+      height: auto;
+      background: var(--off-white);
+      border-radius: 16px;
+      border: none;
+      padding: 24px 16px;
+      margin: 48px 0 48px 0;
+    }
+    .sidebar-heading {
+      font-size: 15.5px; font-weight: 600;
+      color: var(--navy);
+      padding: 0 12px;
+      margin-bottom: 24px; margin-top: 4px;
+    }
+    .cat-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+    .cat-nav a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 9px 12px; border-radius: 8px; font-size: 13.5px; font-weight: 500;
+      color: var(--text-body); text-decoration: none; transition: all .15s;
+    }
+    .cat-nav a:hover { background: #EAECEF; color: var(--navy); }
+    .cat-nav a.active { background: var(--blue-light); color: var(--blue); font-weight: 600; }
+    .cat-count {
+      font-size: 11px; color: var(--text-muted);
+      background: #E5E7EB; padding: 1px 7px; border-radius: 20px;
+    }
+    .cat-nav a.active .cat-count { background: #DBEAFE; color: var(--blue); }
+
+    /* ══ CONTENT ══ */
+    .gallery-content { padding: 48px 0 80px 40px; }
+    .gallery-header { margin-bottom: 48px; }
+    .gallery-header h1 {
+      font-size: 30px; font-weight: 800; color: var(--navy);
+      letter-spacing: -0.02em; margin-bottom: 6px;
+    }
+    .gallery-header p { font-size: 15.5px; color: var(--text-body); line-height: 1.7; }
+
+    .cat-section { margin-bottom: 64px; scroll-margin-top: 32px; }
+    .cat-section-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 16px; padding-bottom: 14px;
+    }
+    .cat-section-header h2 { font-size: 17px; font-weight: 700; color: var(--navy); }
+    .photo-count {
+      font-size: 11.5px; color: var(--text-muted);
+      background: var(--off-white); padding: 2px 9px;
+      border-radius: 20px; border: 1px solid var(--border);
+    }
+
+    /* ══ MASONRY — two explicit columns, both start at top ══ */
+    .photo-grid {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start; /* both columns start at the same Y */
+    }
+    .photo-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .photo-item {
+      border-radius: 14px; overflow: hidden;
+      position: relative; cursor: pointer; background: #DDE2EA;
+    }
+    .photo-item:hover .photo-overlay { opacity: 1; }
+
+    /* placeholder */
+    .photo-ph {
+      width: 100%; display: block; background: #DDE2EA; position: relative;
+    }
+    .photo-ph[data-path]::after {
+      content: attr(data-path);
+      position: absolute; bottom: 10px; left: 12px; right: 12px;
+      font-size: 9.5px; font-weight: 600; color: #9CA3AF;
+      letter-spacing: .03em; font-family: 'Plus Jakarta Sans', sans-serif;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .photo-ph.ar-landscape { aspect-ratio: 4/3; }
+    .photo-ph.ar-portrait  { aspect-ratio: 3/4; }
+    .photo-ph.ar-square    { aspect-ratio: 1/1; }
+    .photo-ph.ar-wide      { aspect-ratio: 16/9; }
+
+    .photo-item img { width: 100%; display: block; object-fit: cover; }
+
+    .photo-overlay {
+      position: absolute; inset: 0;
+      background: rgba(11,20,38,.22);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .2s;
+    }
+    .photo-overlay i { font-size: 26px; color: #fff; }
+
+    /* lightbox */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,.92); align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; object-fit: contain; }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 24px;
+      font-size: 32px; color: #fff; cursor: pointer;
+      background: none; border: none; opacity: .7; transition: opacity .15s;
+    }
+    .lightbox-close:hover { opacity: 1; }
+
+    @media (max-width: 900px) {
+      .gallery-wrap { grid-template-columns: 1fr; height: auto; }
+      .gallery-sidebar { position: static; height: auto; }
+      .gallery-content { padding: 32px 20px; }
+    }
+
+    /* ── Booking CTA ── */
+    .booking-cta { background:var(--navy); padding:72px 5%; }
+    .booking-inner { max-width:1300px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:56px; }
+    .booking-text { flex:1; }
+    .booking-text h2 { font-size:clamp(24px,2.8vw,38px); font-weight:800; color:#fff; line-height:1.2; margin-bottom:10px; letter-spacing:-0.02em; }
+    .booking-text p { font-size:15px; color:rgba(255,255,255,.65); }
+    .booking-btns { display:flex; align-items:center; gap:12px; margin-top:24px; flex-wrap:wrap; }
+    .booking-contacts { display:flex; flex-direction:column; gap:16px; flex-shrink:0; }
+    .contact-item { display:flex; align-items:center; gap:10px; color:rgba(255,255,255,.6); font-size:13.5px; white-space:nowrap; }
+    .contact-item i { font-size:17px; color:rgba(255,255,255,.35); flex-shrink:0; }
+    .social-btn-lg { width:50px; height:50px; border-radius:50%; background:rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.75); font-size:22px; text-decoration:none; transition:all .2s; }
+    .social-btn-lg:hover { background:rgba(255,255,255,.22); color:#fff; transform:translateY(-2px); }
+    /* ── Footer ── */
+    footer { background:var(--navy); padding:28px 5%; }
+    .footer-inner { max-width:1300px; margin:0 auto; }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:rgba(255,255,255,.6); }
+    .footer-bottom a { color:rgba(255,255,255,.6); text-decoration:underline; text-underline-offset:3px; transition:color .15s; font-size:12px; }
+    .footer-bottom a:hover { color:#fff; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo-circle" title="Mucharski Zakątek">
+    <img src="" alt="Logo">
+    <span class="logo-initials">MZ</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">O nas</a></li>
+    <li><a href="galeria.html" class="active">Galeria</a></li>
+    <li><a href="cennik.html">Cennik i rezerwacja</a></li>
+    <li><a href="regulamin.html">Regulamin</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-select" id="langSelect">
+      <button class="lang-btn" onclick="toggleLang()" type="button">
+        <span class="lang-flag-circle" id="langFlag">&#127477;&#127473;</span>
+        <span id="langCode">PL</span>
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="lang-dropdown" id="langDropdown" style="display:none;">
+        <button onclick="setLang('pl','&#127477;&#127473;','PL')" type="button" class="lang-option active">&#127477;&#127473; Polski</button>
+        <button onclick="setLang('en','&#127468;&#127463;','EN')" type="button" class="lang-option">&#127468;&#127463; English</button>
+      </div>
+    </div>
+    <a href="cennik.html#rezerwacja" class="btn btn-primary">Zarezerwuj</a>
+  </div>
+</nav>
+
+<!-- GALLERY -->
+<div class="gallery-wrap">
+
+  <aside class="gallery-sidebar">
+    <p class="sidebar-heading">Pomieszczenia i okolica</p>
+    <ul class="cat-nav" id="catNav">
+      <li><a href="#salon">Salon <span class="cat-count">4</span></a></li>
+      <li><a href="#kuchnia">Kuchnia <span class="cat-count">3</span></a></li>
+      <li><a href="#lazienka">Łazienka <span class="cat-count">3</span></a></li>
+      <li><a href="#sypialnia-1">Sypialnia 1 <span class="cat-count">3</span></a></li>
+      <li><a href="#sypialnia-2">Sypialnia 2 <span class="cat-count">3</span></a></li>
+      <li><a href="#schody">Schody <span class="cat-count">2</span></a></li>
+      <li><a href="#weranda">Weranda <span class="cat-count">4</span></a></li>
+      <li><a href="#ognisko">Ognisko <span class="cat-count">3</span></a></li>
+      <li><a href="#parking">Parking <span class="cat-count">2</span></a></li>
+      <li><a href="#widok">Widok na jezioro <span class="cat-count">5</span></a></li>
+      <li><a href="#dwor">Dwór <span class="cat-count">3</span></a></li>
+    </ul>
+  </aside>
+
+  <main class="gallery-content" id="galleryContent">
+    <div class="gallery-header">
+      <h1>Galeria</h1>
+      <p>Zdjęcia pomieszczeń, ogrodu i okolicy — kliknij, aby powiększyć</p>
+    </div>
+
+    <!-- SALON -->
+    <section class="cat-section" id="salon">
+      <div class="cat-section-header"><h2>Salon</h2><span class="photo-count">4 zdjęcia</span></div>
+      <div class="photo-grid">
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/salon/salon-01.jpg"></div>
+            <!-- <img src="zdjecia/salon/salon-01.jpg" alt="Salon"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/salon/salon-03.jpg"></div>
+            <!-- <img src="zdjecia/salon/salon-03.jpg" alt="Salon"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/salon/salon-02.jpg"></div>
+            <!-- <img src="zdjecia/salon/salon-02.jpg" alt="Salon"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/salon/salon-04.jpg"></div>
+            <!-- <img src="zdjecia/salon/salon-04.jpg" alt="Salon"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KUCHNIA -->
+    <section class="cat-section" id="kuchnia">
+      <div class="cat-section-header"><h2>Kuchnia</h2><span class="photo-count">3 zdjęcia</span></div>
+      <div class="photo-grid">
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/kuchnia/kuchnia-01.jpg"></div>
+            <!-- <img src="zdjecia/kuchnia/kuchnia-01.jpg" alt="Kuchnia"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="photo-item">
+            <div class="photo-ph ar-square" data-path="zdjecia/kuchnia/kuchnia-03.jpg"></div>
+            <!-- <img src="zdjecia/kuchnia/kuchnia-03.jpg" alt="Kuchnia"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/kuchnia/kuchnia-02.jpg"></div>
+            <!-- <img src="zdjecia/kuchnia/kuchnia-02.jpg" alt="Kuchnia"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ŁAZIENKA -->
+    <section class="cat-section" id="lazienka">
+      <div class="cat-section-header"><h2>Łazienka</h2><span class="photo-count">3 zdjęcia</span></div>
+      <div class="photo-grid">
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/lazienka/lazienka-01.jpg"></div>
+            <!-- <img src="zdjecia/lazienka/lazienka-01.jpg" alt="Łazienka"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-square" data-path="zdjecia/lazienka/lazienka-02.jpg"></div>
+            <!-- <img src="zdjecia/lazienka/lazienka-02.jpg" alt="Łazienka"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/lazienka/lazienka-03.jpg"></div>
+            <!-- <img src="zdjecia/lazienka/lazienka-03.jpg" alt="Łazienka"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SYPIALNIA 1 -->
+    <section class="cat-section" id="sypialnia-1">
+      <div class="cat-section-header"><h2>Sypialnia 1</h2><span class="photo-count">3 zdjęcia</span></div>
+      <div class="photo-grid">
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/sypialnia-1/sypialnia-1-01.jpg"></div>
+            <!-- <img src="zdjecia/sypialnia-1/sypialnia-1-01.jpg" alt="Sypialnia 1"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="photo-item">
+            <div class="photo-ph ar-square" data-path="zdjecia/sypialnia-1/sypialnia-1-03.jpg"></div>
+            <!-- <img src="zdjecia/sypialnia-1/sypialnia-1-03.jpg" alt="Sypialnia 1"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/sypialnia-1/sypialnia-1-02.jpg"></div>
+            <!-- <img src="zdjecia/sypialnia-1/sypialnia-1-02.jpg" alt="Sypialnia 1"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SYPIALNIA 2 -->
+    <section class="cat-section" id="sypialnia-2">
+      <div class="cat-section-header"><h2>Sypialnia 2</h2><span class="photo-count">3 zdjęcia</span></div>
+      <div class="photo-grid">
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/sypialnia-2/sypialnia-2-01.jpg"></div>
+            <!-- <img src="zdjecia/sypialnia-2/sypialnia-2-01.jpg" alt="Sypialnia 2"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/sypialnia-2/sypialnia-2-02.jpg"></div>
+            <!-- <img src="zdjecia/sypialnia-2/sypialnia-2-02.jpg" alt="Sypialnia 2"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/sypialnia-2/sypialnia-2-03.jpg"></div>
+            <!-- <img src="zdjecia/sypialnia-2/sypialnia-2-03.jpg" alt="Sypialnia 2"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHODY -->
+    <section class="cat-section" id="schody">
+      <div class="cat-section-header"><h2>Schody</h2><span class="photo-count">2 zdjęcia</span></div>
+      <div class="photo-grid">
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/schody/schody-01.jpg"></div>
+            <!-- <img src="zdjecia/schody/schody-01.jpg" alt="Schody"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/schody/schody-02.jpg"></div>
+            <!-- <img src="zdjecia/schody/schody-02.jpg" alt="Schody"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WERANDA -->
+    <section class="cat-section" id="weranda">
+      <div class="cat-section-header"><h2>Weranda</h2><span class="photo-count">4 zdjęcia</span></div>
+      <div class="photo-grid">
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/weranda/weranda-01.jpg"></div>
+            <!-- <img src="zdjecia/weranda/weranda-01.jpg" alt="Weranda"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/weranda/weranda-03.jpg"></div>
+            <!-- <img src="zdjecia/weranda/weranda-03.jpg" alt="Weranda"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/weranda/weranda-02.jpg"></div>
+            <!-- <img src="zdjecia/weranda/weranda-02.jpg" alt="Weranda"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/weranda/weranda-04.jpg"></div>
+            <!-- <img src="zdjecia/weranda/weranda-04.jpg" alt="Weranda"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OGNISKO -->
+    <section class="cat-section" id="ognisko">
+      <div class="cat-section-header"><h2>Ognisko</h2><span class="photo-count">3 zdjęcia</span></div>
+      <div class="photo-grid">
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-square" data-path="zdjecia/ognisko/ognisko-01.jpg"></div>
+            <!-- <img src="zdjecia/ognisko/ognisko-01.jpg" alt="Ognisko"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/ognisko/ognisko-02.jpg"></div>
+            <!-- <img src="zdjecia/ognisko/ognisko-02.jpg" alt="Ognisko"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="photo-item">
+            <div class="photo-ph ar-wide" data-path="zdjecia/ognisko/ognisko-03.jpg"></div>
+            <!-- <img src="zdjecia/ognisko/ognisko-03.jpg" alt="Ognisko"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARKING -->
+    <section class="cat-section" id="parking">
+      <div class="cat-section-header"><h2>Parking</h2><span class="photo-count">2 zdjęcia</span></div>
+      <div class="photo-grid">
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/parking/parking-01.jpg"></div>
+            <!-- <img src="zdjecia/parking/parking-01.jpg" alt="Parking"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/parking/parking-02.jpg"></div>
+            <!-- <img src="zdjecia/parking/parking-02.jpg" alt="Parking"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WIDOK NA JEZIORO -->
+    <section class="cat-section" id="widok">
+      <div class="cat-section-header"><h2>Widok na jezioro</h2><span class="photo-count">5 zdjęć</span></div>
+      <div class="photo-grid">
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/widok/widok-01.jpg"></div>
+            <!-- <img src="zdjecia/widok/widok-01.jpg" alt="Widok na jezioro"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="photo-item">
+            <div class="photo-ph ar-wide" data-path="zdjecia/widok/widok-03.jpg"></div>
+            <!-- <img src="zdjecia/widok/widok-03.jpg" alt="Widok na jezioro"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/widok/widok-05.jpg"></div>
+            <!-- <img src="zdjecia/widok/widok-05.jpg" alt="Widok na jezioro"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/widok/widok-02.jpg"></div>
+            <!-- <img src="zdjecia/widok/widok-02.jpg" alt="Widok na jezioro"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/widok/widok-04.jpg"></div>
+            <!-- <img src="zdjecia/widok/widok-04.jpg" alt="Widok na jezioro"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DWÓR -->
+    <section class="cat-section" id="dwor">
+      <div class="cat-section-header"><h2>Dwór</h2><span class="photo-count">3 zdjęcia</span></div>
+      <div class="photo-grid">
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-landscape" data-path="zdjecia/dwor/dwor-01.jpg"></div>
+            <!-- <img src="zdjecia/dwor/dwor-01.jpg" alt="Dwór"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="photo-item">
+            <div class="photo-ph ar-wide" data-path="zdjecia/dwor/dwor-03.jpg"></div>
+            <!-- <img src="zdjecia/dwor/dwor-03.jpg" alt="Dwór"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+        <div class="photo-col">
+          <div class="photo-item">
+            <div class="photo-ph ar-portrait" data-path="zdjecia/dwor/dwor-02.jpg"></div>
+            <!-- <img src="zdjecia/dwor/dwor-02.jpg" alt="Dwór"> -->
+            <div class="photo-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">&times;</button>
+  <img src="" alt="" id="lightboxImg">
+</div>
+
+<script>
+  function toggleLang() {
+    var d = document.getElementById('langDropdown');
+    d.style.display = d.style.display === 'none' ? 'block' : 'none';
+  }
+  function setLang(code, flag, label) {
+    document.getElementById('langFlag').innerHTML = flag;
+    document.getElementById('langCode').textContent = label;
+    document.getElementById('langDropdown').style.display = 'none';
+    document.documentElement.lang = code;
+  }
+  document.addEventListener('click', function(e) {
+    if (!document.getElementById('langSelect').contains(e.target))
+      document.getElementById('langDropdown').style.display = 'none';
+  });
+
+  /* active sidebar nav based on viewport scroll */
+  const sections = document.querySelectorAll('.cat-section');
+  const navLinks = document.querySelectorAll('.cat-nav a');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector('.cat-nav a[href="#' + entry.target.id + '"]');
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -75% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  /* smooth scroll */
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  /* lightbox */
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.querySelectorAll('.photo-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const img = item.querySelector('img');
+      if (img) { lightboxImg.src = img.src; lightboxImg.alt = img.alt; lightbox.classList.add('open'); }
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+</script>
+
+
+<!-- ═══════════ BOOKING CTA ═══════════ -->
+<section class="booking-cta" id="rezerwacja">
+  <div class="booking-inner">
+    <div class="booking-text">
+      <h2>Gotowy na wypoczynek nad jeziorem?</h2>
+      <p>Sprawdź wolne terminy i zarezerwuj pobyt — odpiszemy w ciągu 24 godzin.</p>
+      <div class="booking-btns">
+        <a href="cennik.html#rezerwacja" class="btn btn-white">Zarezerwuj</a>
+        <a href="mailto:mucharski.zakatek@gmail.com" class="btn btn-ghost-white">Napisz do nas</a>
+        <div style="width:1px;height:36px;background:rgba(255,255,255,.2);margin:0 4px;flex-shrink:0;"></div>
+        <a href="#whatsapp" class="social-btn-lg" title="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+        <a href="#facebook" class="social-btn-lg" title="Facebook"><i class="ti ti-brand-facebook"></i></a>
+        <a href="https://www.instagram.com/mucharski.zakatek/" target="_blank" rel="noopener" class="social-btn-lg" title="Instagram"><i class="ti ti-brand-instagram"></i></a>
+      </div>
+    </div>
+    <div class="booking-contacts">
+      <div class="contact-item">
+        <i class="ti ti-phone"></i>
+        <a href="tel:+48733687595" style="color:inherit;text-decoration:none;">+48 733 687 595</a>
+      </div>
+      <div class="contact-item">
+        <i class="ti ti-mail"></i>
+        <a href="mailto:mucharski.zakatek@gmail.com" style="color:inherit;text-decoration:none;">mucharski.zakatek@gmail.com</a>
+      </div>
+      <div class="contact-item" onclick="copyAddress()" style="cursor:pointer;" title="Kliknij, aby skopiować adres">
+        <i class="ti ti-map-pin"></i>
+        <span>Dąbrówka 217, 34-146 Dąbrówka</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <span>&copy; 2026 Mucharski Zakątek</span>
+      <a href="polityka-prywatnosci.html">Polityka prywatności</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function copyAddress() {
+    navigator.clipboard.writeText('Dąbrówka 217, 34-146 Dąbrówka');
+  }
+</script>
+</body>
+</html>
