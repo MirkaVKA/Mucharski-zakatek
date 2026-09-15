@@ -62,7 +62,7 @@
       height: 40px;
       border-radius: 50%;
       background: var(--off-white);
-      border: none;
+      
       flex-shrink: 0;
       display: flex;
       align-items: center;
@@ -226,33 +226,24 @@
     /* ══════════════════════════════
        DIAMOND PHOTO GRID
     ══════════════════════════════ */
-    .diamond-grid {
-      position: relative; width: 100%; aspect-ratio: 1;
-      max-width: 820px; margin-left: auto;
+    .hero-circle-wrap {
+      width: 100%; max-width: 620px;
+      aspect-ratio: 1; margin-left: auto;
     }
-    .dw { position: absolute; overflow: hidden; }
-    .dw > * {
-      width: 100%; height: 100%; display: block;
-      object-fit: cover;
-      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    }
-    /* placeholders */
-    .dph {
+    .hero-circle-ph {
+      width: 100%; height: 100%;
+      border-radius: 50%;
       background: #DDE2EA;
+      display: block; object-fit: cover;
       position: relative;
-      display: flex; align-items: center; justify-content: center;
     }
-    .dph::after {
+    .hero-circle-ph[data-label]::after {
       content: attr(data-label);
-      position: absolute; font-size: 10px; font-weight: 600;
-      color: #9CA3AF; text-align: center; padding: 0 20%;
-      line-height: 1.4; letter-spacing: .03em; pointer-events: none;
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px; font-weight: 600;
+      color: #9CA3AF; text-align: center;
     }
-    /* positions — bigger */
-    .dm  { width: 60%; aspect-ratio: 1; top: 20%; left: 20%; z-index: 3; }
-    .dtr { width: 42%; aspect-ratio: 1; top: 0%;  right: 2%; z-index: 2; }
-    .dbl { width: 42%; aspect-ratio: 1; bottom: 0%; left: 2%; z-index: 2; }
-    .dbr { width: 36%; aspect-ratio: 1; bottom: 5%; right: 8%; z-index: 1; }
 
     /* ══════════════════════════════
        GENERIC SECTION
@@ -323,12 +314,18 @@
     .bg-off { background: var(--off-white); }
 
     .dom-grid {
-      display: grid; grid-template-columns: 45% 55%;
+      display: grid; grid-template-columns: 55% 45%;
       gap: 80px; align-items: center; margin-top: 64px;
     }
-    .dom-images { position: relative; height: 440px; }
-    .dd1 { width: 60%; aspect-ratio: 1; position: absolute; top: 0; left: 0; z-index: 2; }
-    .dd2 { width: 58%; aspect-ratio: 1; position: absolute; bottom: 0; right: 0; z-index: 1; }
+    .dom-circles { position: relative; height: 480px; }
+    .dc1 { width: 72%; aspect-ratio:1; border-radius:50%; overflow:hidden; position:absolute; top:0; right:0; z-index:2; }
+    .dc2 { width: 48%; aspect-ratio:1; border-radius:50%; overflow:hidden; position:absolute; bottom:0; left:0; z-index:1; }
+    .dc1 > *, .dc2 > * { width:100%; height:100%; display:block; object-fit:cover; background:#DDE2EA; position:relative; }
+    .dc1 > [data-label]::after, .dc2 > [data-label]::after {
+      content:attr(data-label); position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%); font-size:11px; font-weight:600;
+      color:#9CA3AF; text-align:center; pointer-events:none;
+    }
 
     .features-list {
       list-style: none; display: grid; grid-template-columns: 1fr 1fr;
@@ -657,23 +654,10 @@
          Replace <div class="dph" ...> with <img class="dph" src="zdjecia/PLIK.jpg" alt="Opis">
          The diamond clip-path applies automatically to any child of .dw
     -->
-    <div class="diamond-grid" aria-hidden="true">
-      <div class="dw dm">
-        <img class="dph" src="images/main-house.PNG" alt="Widok na Jezioro Mucharskie">
-        <!-- <img class="dph" src="images/main-house.PNG" alt="Widok na Jezioro Mucharskie"> -->
-      </div>
-      <div class="dw dtr">
-        <img class="dph" src="images/window-view.jpg" alt="Widok">
-        <!-- <img class="dph" src="zdjecia/dom-zewnatrz.jpg" alt="Dom z zewnątrz"> -->
-      </div>
-      <div class="dw dbl">
-        <div class="dph" data-label="wnętrze / salon"></div>
-        <!-- <img class="dph" src="zdjecia/salon.jpg" alt="Salon"> -->
-      </div>
-      <div class="dw dbr">
-        <div class="dph" data-label="sypialnia"></div>
-        <!-- <img class="dph" src="zdjecia/sypialnia.jpg" alt="Sypialnia"> -->
-      </div>
+    <div class="hero-circle-wrap">
+      <div class="hero-circle-ph" data-label="widok na jezioro"></div>
+      <!-- Gdy będzie zdjęcie, zamień powyższą linię na: -->
+      <!-- <img class="hero-circle-ph" src="zdjecia/widok-na-jezioro.jpg" alt="Widok na Jezioro Mucharskie"> -->
     </div>
 
   </section>
@@ -741,16 +725,6 @@
 <section class="section" id="dom">
   <div class="section-inner">
     <div class="dom-grid">
-      <div class="dom-images" aria-hidden="true">
-        <div class="dw dd1">
-          <div class="dph" data-label="sypialnia 1"></div>
-          <!-- <img class="dph" src="zdjecia/sypialnia-1.jpg" alt="Sypialnia 1"> -->
-        </div>
-        <div class="dw dd2">
-          <div class="dph" data-label="weranda"></div>
-          <!-- <img class="dph" src="zdjecia/weranda.jpg" alt="Weranda z widokiem"> -->
-        </div>
-      </div>
       <div>
         <h2 class="section-title">Przytulny całoroczny drewniany domek <span>z duszą</span></h2>
         <p class="section-desc">Dwupiętrowy dom z drewna z werandą skierowaną wprost na jezioro. Idealny na rodzinny weekend, wyjazd z przyjaciółmi lub spokojny urlop.</p>
@@ -766,6 +740,16 @@
           <li>Pościel i ręczniki</li>
           <li>Wi-Fi</li>
         </ul>
+      </div>
+      <div class="dom-circles" aria-hidden="true">
+        <div class="dc1">
+          <div data-label="sypialnia 1"></div>
+          <!-- <img src="zdjecia/sypialnia-1.jpg" alt="Sypialnia 1"> -->
+        </div>
+        <div class="dc2">
+          <div data-label="weranda"></div>
+          <!-- <img src="zdjecia/weranda.jpg" alt="Weranda z widokiem"> -->
+        </div>
       </div>
     </div>
   </div>
