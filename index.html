@@ -180,14 +180,27 @@
        HERO
     ══════════════════════════════ */
     .hero {
-      padding: 72px 5% 64px;
       display: grid;
-      grid-template-columns: 48% 52%;
-      gap: 40px;
-      align-items: center;
-      max-width: 1300px;
-      margin: 0 auto;
+      grid-template-columns: 50% 50%;
       min-height: calc(100vh - 68px);
+      overflow: hidden;
+    }
+    .hero-content {
+      padding: 72px 6% 64px 5%;
+      display: flex; flex-direction: column; justify-content: center;
+      max-width: 700px; margin-left: auto;
+    }
+    .hero-image {
+      position: relative; overflow: hidden;
+    }
+    .hero-image-ph {
+      width: 100%; height: 100%;
+      background: #DDE2EA;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 600; color: #9CA3AF;
+    }
+    .hero-image img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
     }
 
     .hero-location {
@@ -226,24 +239,8 @@
     /* ══════════════════════════════
        DIAMOND PHOTO GRID
     ══════════════════════════════ */
-    .hero-circle-wrap {
-      width: 100%; max-width: 620px;
-      aspect-ratio: 1; margin-left: auto;
-    }
-    .hero-circle-ph {
-      width: 100%; height: 100%;
-      border-radius: 50%;
-      background: #DDE2EA;
-      display: block; object-fit: cover;
-      position: relative;
-    }
-    .hero-circle-ph[data-label]::after {
-      content: attr(data-label);
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 12px; font-weight: 600;
-      color: #9CA3AF; text-align: center;
-    }
+    .hero-circle-wrap { display:none; }
+    .hero-circle-ph { display:none; }
 
     /* ══════════════════════════════
        GENERIC SECTION
@@ -507,6 +504,7 @@
     ══════════════════════════════ */
     @media (max-width: 1024px) {
       .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-image { height: 300px; }
       .diamond-grid { max-width: 420px; margin: 0 auto 40px; order: -1; }
       .why-grid { grid-template-columns: 1fr 1fr; }
       .dom-grid { grid-template-columns: 1fr; }
@@ -579,7 +577,7 @@
 
   <!-- Logo: set src="img/logo.png" when ready -->
   <a href="index.html" class="logo-circle" title="Mucharski Zakątek">
-    <img src="images/logo.svg" alt="Mucharski Zakątek">
+    <img src="images/Logo.svg" alt="Mucharski Zakątek">
     <span class="logo-initials">MZ</span>
   </a>
 
@@ -616,8 +614,7 @@
 
 
 <!-- ═══════════ HERO ═══════════ -->
-<div style="max-width:1300px;margin:0 auto;">
-  <section class="hero">
+<section class="hero">
 
     <div class="hero-content">
       <p class="hero-location">
@@ -649,19 +646,13 @@
       </div>
     </div>
 
-    <!-- Diamond photo grid
-         HOW TO ADD YOUR PHOTOS:
-         Replace <div class="dph" ...> with <img class="dph" src="zdjecia/PLIK.jpg" alt="Opis">
-         The diamond clip-path applies automatically to any child of .dw
-    -->
-    <div class="hero-circle-wrap">
-      <img class="hero-circle-ph" src="images/main-house.PNG" alt="Widok na Jezioro Mucharskie">
-      <!-- Gdy będzie zdjęcie, zamień powyższą linię na: -->
-      <!-- <img class="hero-circle-ph" src="zdjecia/widok-na-jezioro.jpg" alt="Widok na Jezioro Mucharskie"> -->
+    <div class="hero-image">
+      <div class="hero-image-ph">widok na jezioro</div>
+      <!-- Gdy będzie zdjęcie: -->
+      <!-- <img src="zdjecia/widok-na-jezioro.jpg" alt="Widok na Jezioro Mucharskie"> -->
     </div>
 
   </section>
-</div>
 
 
 <!-- ═══════════ DLACZEGO WARTO ═══════════ -->
