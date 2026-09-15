@@ -47,6 +47,8 @@
     }
     .logo-circle img { width: 100%; height: 100%; object-fit: cover; display: none; }
     .logo-circle img[src]:not([src=""]) { display: block; }
+    .logo-circle img[src]:not([src=""]) ~ .logo-initials { display: none; }
+    .logo-circle img { border-radius: 50%; }
     .logo-initials { font-size: 12px; font-weight: 800; color: var(--text-muted); }
     .nav-links { display: flex; gap: 4px; list-style: none; justify-content: center; }
     .nav-links a {
