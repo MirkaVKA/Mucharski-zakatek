@@ -308,10 +308,19 @@
     .sp-price { font-size: 16px; }
     .sp-unit { font-size: 11px; }
 
+    /* Desktop: cal | form | summary */
+    .cal-side { order: 1; }
+    .form-side { order: 2; }
+    .summary-side { order: 3; }
+
     /* ══ CENNIK FONT SIZES — mobile ══ */
     @media (max-width: 768px) {
       .booking-social-group { align-self: center !important; margin-top: 22px !important; }
       .booking-social-group > div:first-child { display: none !important; }
+      /* Mobile: cal | summary | form */
+      .cal-side { order: 1; }
+      .summary-side { order: 2; }
+      .form-side { order: 3; }
       .page-hero { padding-top: 40px; padding-bottom: 24px; }
       .info-banner { margin-bottom: 16px; }
       .page-hero h1 { font-size: 30px; }
