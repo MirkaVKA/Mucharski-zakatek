@@ -19,7 +19,7 @@
     body { font-family:'Plus Jakarta Sans',-apple-system,sans-serif; color:var(--navy); background:#fff; overflow-x:hidden; }
 
     /* ══ NAV ══ */
-    nav { position:sticky; top:0; z-index:100; background:rgba(255,255,255,.96); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--border); padding:0 5%; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:68px; gap:16px; }
+    nav { position:sticky; top:0; z-index:100; background:rgba(255,255,255,.96); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--border); padding:0 72px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:60px; gap:16px; }
     .logo-circle { width:40px; height:40px; border-radius:50%; background:var(--off-white);  display:flex; align-items:center; justify-content:center; overflow:hidden; text-decoration:none; flex-shrink:0; }
     .logo-circle img { width:100%; height:100%; object-fit:cover; display:none; }
     .logo-circle img[src]:not([src=""]) { display:block; }
@@ -49,12 +49,12 @@
     .btn-ghost-white:hover { background:rgba(255,255,255,.22); }
 
     /* ══ HERO ══ */
-    .page-hero { padding:64px 5% 56px; }
+    .page-hero { padding:64px 72px 56px; }
     .page-hero h1 { font-size:clamp(32px,3.5vw,48px); font-weight:800; letter-spacing:-0.02em; color:var(--navy); margin-bottom:12px; }
     .page-hero p { font-size:16px; color:var(--text-body); line-height:1.75; max-width:480px; }
 
     /* ══ CONTACT SECTION ══ */
-    .contact-section { padding:0 5% 88px; }
+    .contact-section { padding:0 72px 88px; }
     .contact-grid {
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -62,7 +62,6 @@
       align-items:start;
     }
 
-    /* ── Left: info ── */
     .contact-info { display:flex; flex-direction:column; gap:12px; }
 
     .contact-card {
@@ -90,7 +89,6 @@
     .contact-card-value { font-size:15px; font-weight:600; color:var(--navy); overflow:hidden; text-overflow:ellipsis; word-break:break-all; }
     .contact-card-action { font-size:12px; color:var(--text-muted); flex-shrink:0; display:flex; align-items:center; gap:4px; }
 
-    /* toast for copy */
     .toast {
       position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px);
       background:var(--navy); color:#fff; font-size:13px; font-weight:500;
@@ -99,7 +97,6 @@
     }
     .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-    /* social row */
     .contact-social { display:flex; gap:10px; margin-top:8px; }
     .social-card {
       flex:1; padding:14px; border-radius:14px; border:1px solid var(--border);
@@ -111,7 +108,6 @@
     .social-card:hover { border-color:var(--blue); color:var(--blue); box-shadow:0 0 0 3px var(--blue-light); }
     .social-card:hover i { color:var(--blue); }
 
-    /* note */
     .contact-note {
       background:var(--off-white); border-radius:14px; padding:18px 20px;
       display:flex; gap:12px; align-items:flex-start; margin-top:4px;
@@ -120,7 +116,6 @@
     .contact-note p { font-size:13.5px; color:var(--text-body); line-height:1.65; }
     .contact-note strong { color:var(--navy); font-weight:600; }
 
-    /* ── Right: map ── */
     .map-wrap {
       border-radius:20px; overflow:hidden;
       border:1px solid var(--border);
@@ -141,7 +136,7 @@
     .map-label a:hover { text-decoration:underline; }
 
     /* ══ BOOKING CTA ══ */
-    .booking-cta { background:var(--navy); padding:72px 5%; }
+    .booking-cta { background:var(--navy); padding:72px 72px; }
     .booking-inner { max-width:1300px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:56px; }
     .booking-text { flex:1; }
     .booking-text h2 { font-size:clamp(24px,2.8vw,38px); font-weight:800; color:#fff; line-height:1.2; margin-bottom:10px; letter-spacing:-0.02em; }
@@ -154,36 +149,31 @@
     .social-btn-lg:hover { background:rgba(255,255,255,.22); color:#fff; transform:translateY(-2px); }
 
     /* ══ FOOTER ══ */
-    footer { background:var(--navy); padding:28px 5%; }
+    footer { background:var(--navy); padding:28px 72px; }
     .footer-inner { max-width:1300px; margin:0 auto; }
     .footer-bottom { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:rgba(255,255,255,.6); }
     .footer-bottom a { color:rgba(255,255,255,.6); text-decoration:underline; text-underline-offset:3px; transition:color .15s; font-size:12px; }
     .footer-bottom a:hover { color:#fff; }
 
-    @media (max-width:768px) { nav { padding:0 4%; } .nav-links { display:none; } }
-
-    
+    /* ══ HAMBURGER MENU ══ */
     .hamburger { display:none; flex-direction:column; justify-content:center; gap:5px; width:36px; height:36px; cursor:pointer; background:none; border:none; padding:4px; border-radius:8px; transition:background .15s; }
     .hamburger:hover { background:var(--off-white); }
     .hamburger span { display:block; width:22px; height:2px; background:var(--navy); border-radius:2px; transition:all .25s ease; }
     .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
     .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display:none; position:fixed; top:60px; left:0; right:0; background:rgba(255,255,255,.98); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:16px 5% 24px; z-index:99; flex-direction:column; gap:4px; box-shadow:0 8px 32px rgba(11,20,38,.08); }
+    .mobile-menu { display:none; position:fixed; top:60px; left:0; right:0; background:rgba(255,255,255,.98); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:16px 16px 24px; z-index:99; flex-direction:column; gap:4px; box-shadow:0 8px 32px rgba(11,20,38,.08); }
     .mobile-menu.open { display:flex; }
     .mobile-menu a { font-size:16px; font-weight:500; color:var(--text-body); text-decoration:none; padding:12px 16px; border-radius:10px; transition:all .15s; }
     .mobile-menu a:hover { background:var(--off-white); color:var(--navy); }
     .mobile-menu a.active { color:var(--blue); background:var(--blue-light); }
-    
-    
-    /* ══ KONTAKT RESPONSIVE ══ */
     @media (max-width: 900px) {
       .contact-grid { grid-template-columns: 1fr; gap: 32px; }
       .map-wrap { position: static; }
       .map-wrap iframe { height: 320px; }
     }
     @media (max-width: 768px) {
-      .contact-section { padding: 0 4% 64px; }
+      .contact-section { padding: 0 16px 64px; }
       .contact-card { padding: 16px; }
       .contact-card-value { font-size: 14px; }
       .contact-social { flex-wrap: wrap; }
@@ -196,28 +186,14 @@
       .contact-card-value { font-size: 13.5px; }
       .cta-contact-item { white-space: normal; }
     }
-    /* ══ HAMBURGER MENU ══ */
-    .hamburger { display:none; flex-direction:column; justify-content:center; gap:5px; width:36px; height:36px; cursor:pointer; background:none; border:none; padding:4px; border-radius:8px; transition:background .15s; }
-    .hamburger:hover { background:var(--off-white); }
-    .hamburger span { display:block; width:22px; height:2px; background:var(--navy); border-radius:2px; transition:all .25s ease; }
-    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
-    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display:none; position:fixed; top:60px; left:0; right:0; background:rgba(255,255,255,.98); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:16px 5% 24px; z-index:99; flex-direction:column; gap:4px; box-shadow:0 8px 32px rgba(11,20,38,.08); }
-    .mobile-menu.open { display:flex; }
-    .mobile-menu a { font-size:16px; font-weight:500; color:var(--text-body); text-decoration:none; padding:12px 16px; border-radius:10px; transition:all .15s; }
-    .mobile-menu a:hover { background:var(--off-white); color:var(--navy); }
-    .mobile-menu a.active { color:var(--blue); background:var(--blue-light); }
-    /* responsive nav */
     @media (max-width:768px) {
       .hamburger { display:flex; }
       nav { grid-template-columns:auto 1fr !important; height:60px !important; }
       .nav-links { display:none !important; }
       .nav-right { justify-content:flex-end; }
     }
-    /* responsive CTA + footer */
     @media (max-width:768px) {
-      .booking-cta { padding:56px 5%; }
+      .booking-cta { padding:56px 16px; }
       .booking-inner { flex-direction:column; text-align:center; gap:32px; }
       .booking-text h2 { font-size:clamp(22px,6vw,30px); }
       .booking-btns { flex-direction:column; align-items:stretch; width:100%; gap:10px; }
@@ -226,6 +202,54 @@
       .booking-contacts, .cta-contact-item { flex-direction:column; align-items:center; }
       .cta-contact-item { white-space:normal; flex-direction:row; justify-content:center; }
       .footer-bottom { flex-direction:column-reverse; gap:6px; align-items:center; text-align:center; }
+    }
+
+    /* ══ 16px horizontal padding on mobile ══ */
+    @media (max-width: 768px) {
+      nav { padding-left: 16px; padding-right: 16px; }
+      .page-hero { padding-left: 16px; padding-right: 16px; }
+      .pricing-wrap { padding-left: 16px; padding-right: 16px; }
+      .info-banner { padding-left: 16px; padding-right: 16px; }
+      .reg-wrap { padding-left: 16px; padding-right: 16px; }
+      .pp-wrap { padding-left: 16px; padding-right: 16px; }
+      .contact-section { padding-left: 16px; padding-right: 16px; }
+      .gallery-wrap { padding-left: 16px; padding-right: 16px; }
+      .gallery-content { padding-left: 16px; padding-right: 0; }
+      .booking-cta { padding-left: 16px; padding-right: 16px; }
+      footer { padding-left: 16px; padding-right: 16px; }
+      .section { padding-left: 16px; padding-right: 16px; }
+      .hero-content { padding-left: 16px; padding-right: 16px; }
+    }
+
+    /* ══ Fixed nav all sizes — kontakt ══ */
+    nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 60px !important; z-index: 200 !important; }
+    body { padding-top: 60px; }
+
+    /* ══ KONTAKT FONT SIZES — desktop ══ */
+    .page-hero { padding-top: 48px; padding-bottom: 32px; }
+    .contact-section { padding-bottom: 80px; }
+    .page-hero h1 { font-size: 36px; }
+    .page-hero p { font-size: 15px; }
+    .contact-note p { font-size: 14px; }
+    .contact-note i { font-size: 20px; }
+    .booking-text h2 { font-size: 30px !important; }
+    .booking-text p { font-size: 15px; }
+
+    /* ══ KONTAKT FONT SIZES — mobile ══ */
+    @media (max-width: 768px) {
+      .page-hero { padding-top: 40px; padding-bottom: 32px; }
+      .contact-section { padding-bottom: 48px; }
+      .booking-social-group { align-self: center !important; margin-top: 22px !important; }
+      .booking-social-group > div:first-child { display: none !important; }
+      .page-hero h1 { font-size: 30px; }
+      .page-hero p { font-size: 14px; }
+      .booking-text h2 { font-size: 24px !important; }
+      .booking-text p { font-size: 14px; }
+    }
+
+    @media (max-width: 768px) {
+      nav { position: fixed; top: 0; left: 0; right: 0; height: 60px; z-index: 200; }
+      body { padding-top: 60px; }
     }
   </style>
 </head>
@@ -262,6 +286,7 @@
     </button>
   </div>
 </nav>
+
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">O nas</a>
@@ -270,6 +295,7 @@
   <a href="regulamin.html">Regulamin</a>
   <a href="kontakt.html" class="active">Kontakt</a>
 </div>
+
 <!-- HERO -->
 <div class="page-hero">
   <h1>Kontakt</h1>
@@ -280,7 +306,6 @@
 <section class="contact-section">
   <div class="contact-grid">
 
-    <!-- LEFT: Contact cards -->
     <div class="contact-info">
 
       <a href="tel:+48733687595" class="contact-card">
@@ -310,20 +335,12 @@
         <span class="contact-card-action" id="copyAction"><i class="ti ti-copy" style="font-size:16px;"></i></span>
       </div>
 
-      <!-- Social -->
       <div class="contact-social">
-        <a href="#whatsapp" class="social-card"><i class="ti ti-brand-whatsapp"></i>
-          <span>WhatsApp</span>
-        </a>
-        <a href="#facebook" class="social-card"><i class="ti ti-brand-facebook"></i>
-          <span>Facebook</span>
-        </a>
-        <a href="https://www.instagram.com/mucharski.zakatek/" target="_blank" rel="noopener" class="social-card"><i class="ti ti-brand-instagram"></i>
-          <span>Instagram</span>
-        </a>
+        <a href="#whatsapp" class="social-card"><i class="ti ti-brand-whatsapp"></i><span>WhatsApp</span></a>
+        <a href="#facebook" class="social-card"><i class="ti ti-brand-facebook"></i><span>Facebook</span></a>
+        <a href="https://www.instagram.com/mucharski.zakatek/" target="_blank" rel="noopener" class="social-card"><i class="ti ti-brand-instagram"></i><span>Instagram</span></a>
       </div>
 
-      <!-- Note -->
       <div class="contact-note">
         <i class="ti ti-clock"></i>
         <p>Odpowiadamy na wiadomości <strong>w ciągu 24 godzin</strong>. Najszybciej przez WhatsApp lub telefon. Obiekt znajduje się <strong>800 m od stacji PKP Dąbrówka Jezioro Mucharskie</strong> — dojazd pociągiem z Krakowa ok. 1 godziny.</p>
@@ -331,7 +348,6 @@
 
     </div>
 
-    <!-- RIGHT: Map -->
     <div class="map-wrap">
       <iframe
         src="https://maps.google.com/maps?q=49.808208,19.598067&t=&z=15&ie=UTF8&iwloc=&output=embed"
@@ -361,11 +377,12 @@
       <div class="booking-btns">
         <a href="cennik.html#rezerwacja" class="btn btn-white">Zarezerwuj</a>
         <a href="mailto:mucharski.zakatek@gmail.com" class="btn btn-ghost-white">Napisz do nas</a>
-      </div>
-      <div class="booking-btns-row">
-        <a href="#whatsapp" class="social-btn-lg" title="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
-        <a href="#facebook" class="social-btn-lg" title="Facebook"><i class="ti ti-brand-facebook"></i></a>
-        <a href="https://www.instagram.com/mucharski.zakatek/" target="_blank" rel="noopener" class="social-btn-lg" title="Instagram"><i class="ti ti-brand-instagram"></i></a>
+        <div class="booking-social-group" style="display:flex;align-items:center;gap:10px;">
+          <div style="width:1px;height:36px;background:rgba(255,255,255,.2);margin:0 4px;flex-shrink:0;"></div>
+          <a href="#whatsapp" class="social-btn-lg" title="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+          <a href="#facebook" class="social-btn-lg" title="Facebook"><i class="ti ti-brand-facebook"></i></a>
+          <a href="https://www.instagram.com/mucharski.zakatek/" target="_blank" rel="noopener" class="social-btn-lg" title="Instagram"><i class="ti ti-brand-instagram"></i></a>
+        </div>
       </div>
     </div>
     <div class="booking-contacts">
@@ -384,6 +401,7 @@
     </div>
   </div>
 </section>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-bottom">
@@ -409,6 +427,12 @@
   function toggleLang(){var d=document.getElementById('langDropdown');d.style.display=d.style.display==='none'?'block':'none';}
   function setLang(code,flag,label){document.getElementById('langFlag').innerHTML=flag;document.getElementById('langCode').textContent=label;document.getElementById('langDropdown').style.display='none';document.documentElement.lang=code;}
   document.addEventListener('click',function(e){if(!document.getElementById('langSelect').contains(e.target))document.getElementById('langDropdown').style.display='none';});
+  function copyAddr() {
+    navigator.clipboard.writeText('Dąbrówka 217, 34-146 Dąbrówka');
+    var t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 2000);
+  }
 </script>
 </body>
 </html>
