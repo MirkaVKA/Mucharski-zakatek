@@ -177,7 +177,7 @@
     .social-btn-lg:hover { background:rgba(255,255,255,.22); color:#fff; transform:translateY(-2px); }
 
     /* ══ FOOTER ══ */
-    footer { background: var(--navy); padding: 28px 72px; }
+    footer { background: var(--navy); padding: 28px 72px calc(28px + env(safe-area-inset-bottom)); }
     .footer-inner { max-width: 1300px; margin: 0 auto; }
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,.6); }
     .footer-bottom a { color: rgba(255,255,255,.6); text-decoration: underline; text-underline-offset: 3px; transition: color .15s; font-size: 12px; }
@@ -339,6 +339,8 @@
 <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
 <link rel="icon" type="image/png" href="images/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="images/favicon.png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   
 </head>
 <body>
