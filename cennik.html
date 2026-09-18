@@ -268,11 +268,11 @@
       .page-hero { padding-left: 16px; padding-right: 16px; }
       .pricing-wrap { padding-left: 16px; padding-right: 16px; }
       /* cennik mobile fixes */
-      .booking-section { box-sizing: border-box; }
+      .booking-section { padding-right: 16px; box-sizing: border-box; }
       .page-hero { padding-top: 40px; }
       .pricing-wrap { padding-bottom: 48px; }
       .cal-side { max-width: 100%; }
-      .form-side { max-width: 100%; max-width: 100%; box-sizing: border-box; }
+      .form-side { max-width: 100%; padding-right: 16px; box-sizing: border-box; }
       /* Уменьшаем внутренний padding календаря, чтобы он вмещался в 288px */
       .dayContainer { padding: 4px !important; }
       .flatpickr-months { padding: 10px 4px 10px !important; }
@@ -338,15 +338,12 @@
       body { padding-top: 60px !important; }
     }
   </style>
-
-  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-  
 </head>
 <body>
 
 <nav>
   <a href="index.html" class="logo-circle" title="Mucharski Zakątek">
-    <img src="images/logo.svg" alt="Logo Mucharski Zakątek"><span class="logo-initials">MZ</span>
+    <img src="images/Logo.svg" alt="Mucharski Zakątek"><span class="logo-initials">MZ</span>
   </a>
   <ul class="nav-links">
     <li><a href="index.html">O nas</a></li>
@@ -472,7 +469,24 @@
         </div>
       </div>
 
-      <!-- MIDDLE: Form -->
+      <!-- MIDDLE: Live summary -->
+      <div class="summary-side">
+        <div class="summary-placeholder" id="summaryPlaceholder">
+          <i class="ti ti-arrow-left" style="font-size:15px;color:var(--blue);"></i>
+          Wybierz termin w kalendarzu, aby zobaczyć cenę
+        </div>
+        <div class="booking-summary" id="bookingSummary">
+          <p class="summary-title">Wybrany termin</p>
+          <div class="summary-row"><span class="s-label">Przyjazd</span><span class="s-value" id="sSumCheckIn">—</span></div>
+          <div class="summary-row"><span class="s-label">Wyjazd</span><span class="s-value" id="sSumCheckOut">—</span></div>
+          <div class="summary-row"><span class="s-label">Liczba dób</span><span class="s-value" id="sSumNights">—</span></div>
+          <div class="summary-row"><span class="s-label">Sezon</span><span class="s-value" id="sSumSeason">—</span></div>
+          <div class="summary-row highlight"><span class="s-label">Szacowana cena</span><span class="s-value" id="sSumPrice">—</span></div>
+          <p class="price-note"><i class="ti ti-info-circle" style="font-size:13px;position:relative;top:1px;margin-right:4px;color:var(--text-muted);"></i>Cena orientacyjna — ostateczna zostanie potwierdzona w wiadomości zwrotnej.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT: Form -->
       <div class="form-side">
         <div id="bookingFormWrap">
           <form id="bookingForm">
@@ -565,23 +579,6 @@
           <i class="ti ti-circle-check"></i>
           <h3>Dziękujemy!</h3>
           <p>Zapytanie zostało wysłane. Odpiszemy w ciągu 24 godzin.</p>
-        </div>
-      </div>
-
-      <!-- RIGHT: Live summary -->
-      <div class="summary-side">
-        <div class="summary-placeholder" id="summaryPlaceholder">
-          <i class="ti ti-arrow-left" style="font-size:15px;color:var(--blue);"></i>
-          Wybierz termin w kalendarzu, aby zobaczyć cenę
-        </div>
-        <div class="booking-summary" id="bookingSummary">
-          <p class="summary-title">Wybrany termin</p>
-          <div class="summary-row"><span class="s-label">Przyjazd</span><span class="s-value" id="sSumCheckIn">—</span></div>
-          <div class="summary-row"><span class="s-label">Wyjazd</span><span class="s-value" id="sSumCheckOut">—</span></div>
-          <div class="summary-row"><span class="s-label">Liczba dób</span><span class="s-value" id="sSumNights">—</span></div>
-          <div class="summary-row"><span class="s-label">Sezon</span><span class="s-value" id="sSumSeason">—</span></div>
-          <div class="summary-row highlight"><span class="s-label">Szacowana cena</span><span class="s-value" id="sSumPrice">—</span></div>
-          <p class="price-note"><i class="ti ti-info-circle" style="font-size:13px;position:relative;top:1px;margin-right:4px;color:var(--text-muted);"></i>Cena orientacyjna — ostateczna zostanie potwierdzona w wiadomości zwrotnej.</p>
         </div>
       </div>
     </div>
@@ -860,6 +857,7 @@ function onDatesSelected(checkIn, checkOut) {
   document.getElementById('summaryPlaceholder').classList.add('hidden');
   document.getElementById('bookingSummary').classList.add('visible');
   document.getElementById('noDateHint').classList.add('hidden');
+  document.getElementById('bookingSummary').scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
 function resetForm() {
